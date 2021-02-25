@@ -40,9 +40,31 @@ void selection_sort(){
     }
 }
 
+int binary_search(int find_v){
+    int left, middle, right;
+    left = 0; right = LIST_SIZE-1; middle = (left + right) / 2;
+    while(left <= right){
+        if(find_v < list[middle]){
+            right = middle - 1;
+        }else if(find_v == list[middle]){
+            return middle;
+        }else if(find_v > list[middle]){
+            left = middle + 1;
+        }
+        middle = (left + right) / 2;
+    }
+    return -1;
+}
+
 int main(){
-    list_init();
-    printf("List init : "); list_print();
-    printf("Selection sort : "); selection_sort(); list_print();
+    printf("List init (sorted) : "); list_init(); selection_sort(); list_print();
+    printf("find value : ");
+    
+    int find_v;
+    scanf("%d", &find_v);
+    find_v = binary_search(find_v);
+    if(find_v==-1) printf("None\n");
+    else printf("pos : %d\n", find_v + 1);
+
     return 0;
 }
